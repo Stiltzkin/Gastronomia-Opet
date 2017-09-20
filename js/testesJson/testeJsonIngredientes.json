@@ -1,0 +1,25 @@
+ [{
+     "id_ingrediente": "1",
+     "nome_ingrediente": "Abacaxi",
+     "quantidade_calorica_ingrediente": "100",
+     "aproveitamento_ingrediente": "90",
+     "quantidade_estoque_ingrediente": "4",
+     "unidade_medida_id_unidade_medida": "1"
+   },
+   {
+     "id_ingrediente": "2",
+     "nome_ingrediente": "Banana",
+     "quantidade_calorica_ingrediente": "1000",
+     "aproveitamento_ingrediente": "70",
+     "quantidade_estoque_ingrediente": "4",
+     "unidade_medida_id_unidade_medida": "2"
+   },
+   {
+     "id_ingrediente": "3",
+     "nome_ingrediente": "Coco",
+     "quantidade_calorica_ingrediente": "200",
+     "aproveitamento_ingrediente": "100",
+     "quantidade_estoque_ingrediente": "4",
+     "unidade_medida_id_unidade_medida": "3"
+   }
+ ]

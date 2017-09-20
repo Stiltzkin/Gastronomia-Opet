@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>AdminLTE 2 | Dashboard</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.7 -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="../css/font-awesome/css/font-awesome.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="../css/AdminLTE.min.css">
+    <link rel="stylesheet" href="../css/_all-skins.min.css">
+    <link rel="stylesheet" href="../css/sweetalert.css">
+    <link rel="stylesheet" href="../css/util.css">
+</head>
+
+<body class="hold-transition skin-green sidebar-mini">
+    <!-- ========================================LAYOUT==================================================== -->
+    <div class="wrapper">
+
+        <header class="main-header">
+            <a href="../index.html" class="logo">
+                <span class="logo-mini"><b>G</b>O</span>
+                <span class="logo-lg"><b>Gastronomia</b>Opet</span>
+            </a>
+            <nav class="navbar navbar-static-top">
+                <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                </a>
+
+                <nav class="navbar navbar-static-top">
+
+                    <!-- Navbar Right Menu -->
+                    <div class="navbar-custom-menu">
+                        <ul class="nav navbar-nav">
+
+                            <div class="navbar-custom-menu">
+                                <ul class="nav navbar-nav">
+                                    <li class="dropdown user user-menu">
+                                        <a href="#">
+                                            <span class="hidden-xs">Sair</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </ul>
+                    </div>
+                </nav>
+            </nav>
+        </header>
+    </div>
+
+    <!-- Menu Vertical -->
+    <aside class="main-sidebar">
+        <secton class="sidebar">
+
+            <!-- Search -->
+            <form action="#" method="get" class="sidebar-form">
+                <div class="input-group">
+                    <input type="text" name="q" class="form-control" placeholder="Search...">
+                    <span class="input-group-btn">
+                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                </button>
+              </span>
+                </div>
+            </form>
+            <!-- Search FIM -->
+
+            <!-- sidebar menu -->
+            <ul class="sidebar-menu">
+                <li class="header">MAIN NAVIGATION</li>
+
+                <li class="treeview">
+                    <a href="../index.html">
+                        <i class="fa fa-bar-chart-o"></i> <span>Dashboard</span>
+                    </a>
+                </li>
+
+                <li class="treeview">
+                    <a href="receitas.html">
+                        <i class="fa fa-book"></i> <span>Receitas</span>
+                    </a>
+                </li>
+
+                <li class="treeview">
+                    <a href="estoque.html">
+                        <i class="fa fa-cubes"></i> <span>Estoque</span>
+                    </a>
+                </li>
+
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-calendar"></i> <span>Aula</span>
+                        <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="planejar-aulas.html"><i class="fa fa-circle-o"></i>Planejar Aulas</a></li>
+                        <li><a href="aulas-concluidas.html"><i class="fa fa-circle-o"></i>Aulas Concluidas</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+        </secton>
+        <!-- sidebar FIM -->
+    </aside>
+    <!-- ======================================================================================================= -->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>Estoque</h1>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box">
+                        <div class="box-header">
+                            <h3 class="box-title ">Ingredientes em Estoque</h3>
+
+                            <!-- SUBMENU ADD -->
+                            <div class="pull-right box-tools">
+                                <button type="button" class="btn btn-success btn-sm" id="addIngrediente">Criar Novo Ingrediente</button>
+                            </div>
+                            <!-- FIM SUBMENU ADD -->
+                        </div>
+
+                        <div class="box-body">
+                            <table id="lista-ingredientes" class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Ingrediente</th>
+                                        <th>Calorias em 100g</th>
+                                        <th>Aproveitamento</th>
+                                        <th>Qtd Atual</th>
+                                        <th>Unidade</th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <!-- lista de ingredientes será gerada aqui -->
+                                <tbody class="tabela-ingrediente"></tbody>
+
+                            </table>
+                        </div>
+
+                        <!-- ADICIONAR/EDITAR INGREDIENTE MODAL -->
+                        <div id="formIngrediente" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header nomeIngredienteHeader">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                                    <div class="modal-body">
+
+                                        <ul id="mensagens-erro"></ul>
+                                        <ul id="mensagens-sucesso"></ul>
+
+                                        <form id="form-addIngrediente" name="form-addIngrediente" method="POST" class="form-horizontal">
+                                            <div class="box-body">
+                                                <div class="form-group">
+                                                    <label for="inputIngrediente" class="col-sm-3 control-label">Ingrediente*</label>
+                                                    <div class="col-sm-6 idIngrediente"></div>
+                                                    <div class="col-sm-6 NomeIngrediente"></div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="inputCalorias" class="col-sm-3 control-label">Quantidade Calorica*</label>
+
+                                                    <div class="col-sm-6 QuantidadeCalorica"></div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="inputAproveitamento" class="col-sm-3 control-label">Aproveitamento*</label>
+                                                    <div class="col-sm-6 Aproveitamento"></div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="inputQtdMinimo" class="col-sm-3 control-label">Quantidade em Estoque</label>
+                                                    <div class="col-sm-6 QuantidadeEstoque"></div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="inputUnidade" class="col-sm-3 control-label">Unidade*</label>
+                                                    <div class="col-sm-6">
+                                                        <select name="unidade_medida_id_unidade_medida" class="form-control UnidadeMedida" style="width: 100%;"></select>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                                <button id="adicionar-ingrediente" type="submit" class="btn btn-success pull-right">Salvar</button>
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- FIM ADICIONAR/EDITAR INGREDIENTE-->
+
+                        <!-- SOMAR MODAL -->
+                        <div id="somar" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header nomeIngredienteHeader">
+                                        <button type="button" class="close " data-dismiss="modal">&times;</button>
+                                    </div>
+                                    <div class="modal-body ">
+
+                                        <ul id="mensagens-erro-soma"></ul>
+                                        <ul id="mensagens-sucesso-soma"></ul>
+
+                                        <form class="form-horizontal" id="formSomar" name="formSomar" method="POST">
+                                            <div class="idIngrediente"></div>
+
+                                            <div class="form-group">
+                                                <label for="QtdAtual" class="col-sm-3 control-label">Quantidade Atual</label>
+                                                <div class="col-xs-3 col-sm-3 quantidadeAtual"></div>
+                                                <div class="col-xs-3 col-sm-3 unidadeMedida"></div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="QtdAtual" class="col-sm-3 control-label">Quantidade a Somar*</label>
+                                                <div class="col-xs-3 col-sm-3 ">
+                                                    <input type="text" name="quantidade_estoque_ingrediente" class="form-control qtdSoma" placeholder="Quantidade">
+                                                </div>
+                                                <div class="col-sm-2 listaUnidade">
+                                                    <select name="unidade_medida_id_unidade_medida" class="form-control UnidadeMedida" style="width: 100%;"></select>
+                                                </div>
+                                            </div>
+
+                                            <div class="modal-footer ">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                                <button type="button" class="btn btn-success pull-right salvar-soma ">Acrescentar</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- FIM SOMAR MODAL -->
+
+                        <!-- SUBTRAIR MODAL -->
+                        <div id="subtrair" class="modal fade " role="dialog ">
+                            <div class="modal-dialog ">
+
+                                <div class="modal-content ">
+                                    <div class="modal-header nomeIngredienteHeader">
+                                        <button type="button" class="close " data-dismiss="modal ">&times;</button>
+                                    </div>
+                                    <div class="modal-body ">
+
+                                        <ul id="mensagens-erro-subtrair"></ul>
+                                        <ul id="mensagens-sucesso-subtrair"></ul>
+
+                                        <form class="form-horizontal" id="formSubtrair" name="subtrair " method="POST ">
+                                            <div class="idIngrediente"></div>
+                                            <div class="form-group">
+                                                <label for="QtdAtual" class="col-sm-3 control-label">Quantidade Atual</label>
+                                                <div class="col-xs-3 col-sm-3 quantidadeAtual"></div>
+                                                <div class="col-xs-3 col-sm-3 unidadeMedida"></div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="QtdAtual" class="col-sm-3 control-label">Quantidade a Subtrair*</label>
+                                                <div class="col-xs-3 col-sm-3 ">
+                                                    <input type="text" name="quantidade_estoque_ingrediente" class="form-control qtdSubtrai" placeholder="Quantidade ">
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <select name="unidade_medida_id_unidade_medida" class="form-control UnidadeMedida" style="width: 100%;"></select>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group ">
+                                                <label for="inputMotivo " class="col-sm-1 control-label ">Motivo*</label>
+
+                                                <div class="col-sm-12 ">
+                                                    <textarea name="motivo" type="text" class="form-control motivo" rows="1" placeholder="Motivo"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer ">
+                                                <button type="button" class="btn btn-default " data-dismiss="modal">Cancelar</button>
+                                                <button type="button" class="btn btn-danger pull-right salvar-subtracao">Subtrair</button>
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- FIM SUBTRAIR MODAL -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- jQuery 2.2.3 -->
+    <script src="../js/jquery-2.2.3.min.js "></script>
+    <!-- Bootstrap 3.3.7 -->
+    <script src="../js/bootstrap.min.js "></script>
+    <!-- AdminLTE App -->
+    <script src="../js/app.min.js "></script>
+    <script src="../js/sweetalert.min.js "></script>
+
+    <script src="../js/extra/estoque/add_editar_ingredientes.js"></script>
+    <script src="../js/extra/estoque/ajaxEstoque.js"></script>
+    <script src="../js/extra/estoque/somar_subtrair.js"></script>
+    <script src="../js/extra/estoque/validacao_ingrediente.js"></script>
+    <script src="../js/extra/estoque/validacao_somar_subtrair.js"></script>
+    <script src="../js/extra/util.js"></script>
+</body>
+
+</html>
