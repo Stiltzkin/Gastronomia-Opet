@@ -49,7 +49,6 @@ function obtemReceitaDoFormulario(formAdicionarReceita) {
 // VALIDAÇAO DA RECEITA
 function validaReceita(receita) {
     var erros = [];
-
     var idx = $.inArray(receita.id, receitaArray);
 
     if (document.getElementById("receitas").selectedIndex == "0" || document.getElementById("receitas").value == "0") {
@@ -78,7 +77,8 @@ function exibeMensagensDeErro(erros) {
     });
 }
 
-$('#saveButton').on('click', function () {
+// botao Criar Aula criado em modal_add_editar_aulas.js
+$('#form_addAula').on('click', '#saveButton', function () {
     limpaMensagens();
     var qtdAlunos = $('.qtdAlunos').val();
     if (isNaN(qtdAlunos)) {
@@ -86,5 +86,6 @@ $('#saveButton').on('click', function () {
         $(li).appendTo('#mensagens-erro');
         return;
     }
+    // jsonPost() esta em ajaxTabelaAulas.js
     jsonPost();
 })
