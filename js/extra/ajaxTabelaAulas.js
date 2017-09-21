@@ -114,7 +114,6 @@ $('#addReceita').on('click', '#agendarButton', function () {
     var id = $(this).closest('#form_addAula').find('.id_aula').data('id');
     var urlData = "http://httpbin.org/post/" + id + "";
 
-
     $.ajax(urlData, {
         type: 'POST',
         data: {
@@ -137,7 +136,6 @@ $('#addReceita').on('click', '#agendarButton', function () {
             })
         }
     })
-
 })
 
 // ===================== MARCAR COMO AULA CONCLUIDA ===================== //
