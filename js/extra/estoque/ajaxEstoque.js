@@ -1,16 +1,24 @@
 // ==================== GET ===================== //
 // armazena os objetos json de ingrediente e unidade para ser usado em outros locais
-var jsonIngrediente, jsonUnidade;
+window.jsonIngrediente;
+window.jsonUnidade;
 
 // get da tabela de ingredientes
-$.getJSON('../js/testesJson/testeJsonIngredientes.json', function (jsonObjectIngrediente) {
-    jsonIngrediente = jsonObjectIngrediente;
-})
+if (typeof jsonIngrediente === 'undefined' || typeof jsonObjectUnidade === 'undefined') {
+    $.getJSON('../js/testesJson/testeJsonIngredientes.json', function (jsonObjectIngrediente) {
+        jsonIngrediente = jsonObjectIngrediente;
 
-// get da tabela de unidades
-$.getJSON('../js/testesJson/testeJsonUnidade.json', function (jsonObjectUnidade) {
-    jsonUnidade = jsonObjectUnidade;
+        // get da tabela de unidades
+        $.getJSON('../js/testesJson/testeJsonUnidade.json', function (jsonObjectUnidade) {
+            jsonUnidade = jsonObjectUnidade;
+            mostraIngredientes();
+        })
+    })
+} else {
+    mostraIngredientes();
+};
 
+function mostraIngredientes() {
     // cria os botoes dos ingredientes
     var botaoAdd = '<td><button type="button" class="btn btn-xs addButton"><i class="fa fa-plus"></i></button></td>';
     var botaoSubtract = '<td><button type="button" class="btn btn-danger btn-xs subButton"><i class="fa fa-minus"></i></button></td>';
@@ -20,7 +28,7 @@ $.getJSON('../js/testesJson/testeJsonUnidade.json', function (jsonObjectUnidade)
     // roda a lista de ingredientes
     $.each(jsonIngrediente, function (indexIngrediente, valIngrediente) {
         // roda a lista de unidades
-        $.each(jsonObjectUnidade, function (indexUnidade, valUnidade) {
+        $.each(jsonUnidade, function (indexUnidade, valUnidade) {
             // compara as id de unidade das tabelas ingredientes e unidade e armazena a key 'descricao' da tabela unidade na variavel unidade
             if (valUnidade.id_unidade_medida == valIngrediente.unidade_medida_id_unidade_medida) {
                 var unidade = valUnidade.descricao_unidade_medida;
@@ -44,8 +52,7 @@ $.getJSON('../js/testesJson/testeJsonUnidade.json', function (jsonObjectUnidade)
             }
         });
     });
-});
-
+}
 // ===================== POST PUT é chamado em validacao-ingrediente.js ===================== //
 function postJson() {
     // seleciona o formulario, vai ser enviado serializado em 'data'

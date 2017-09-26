@@ -804,7 +804,6 @@ a:focus {
     overflow: visible;
 }
 
-.sidebar-form,
 .sidebar-menu>li.header {
     overflow: hidden;
     text-overflow: clip;

@@ -60,15 +60,26 @@
         <section class="sidebar">
 
             <!-- Search -->
-            <form action="#" method="get" class="sidebar-form">
-                <div class="input-group">
-                    <input type="text" name="q" class="form-control" placeholder="Search...">
+            <div class="btn-group sidebar-form">
+                <div class="input-group" data-toggle="dropdown">
+                    <input type="text" class="dropdown-toggle form-control" id="myInput" aria-haspopup="true" aria-expanded="false" placeholder="Procurar.."
+                        onkeyup="search()">
+                    </input>
+
                     <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
+                            <button type="button" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                            </button>
+                        </span>
                 </div>
-            </form>
+
+                <ul class="dropdown-menu">
+                    <li><input class="col-xs-3" type="radio" id="filterIng" name="hah" onclick="getIngredientes()" value="Ingredientes">
+                        <label for="filterIng">Ingredientes</label></li>
+                    <li><input class="col-xs-3" type="radio" id="filterRec" name="hah" onclick="getReceitas()" value="Receitas">
+                        <label for="filterRec">Receitas</label>
+                    </li>
+                </ul>
+            </div>
             <!-- Search FIM -->
 
             <!-- sidebar menu -->
@@ -114,160 +125,192 @@
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <h1>Aulas</h1>
-        </section>
 
-        <section class="content">
+        <!-- Search será gerado aqui -->
+        <div id="listaSearch" style="display:none;">
+            <!-- CABEÇALHO -->
+            <section class="content-header">
+                <h1>Procurando</h1>
+            </section>
 
-            <!-- TABELA DE AULAS AGENDADAS -->
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="box box-success">
-                        <div class="box-header">
-                            <h3 class="box-title ">Aulas Agendadas</h3>
-                        </div>
-                        <div class="box-body">
-                            <table class="table table-bordered table-hover aulas">
-                                <thead>
-                                    <tr>
-                                        <th>Dia</th>
-                                        <th>Turno</th>
-                                        <th>Nº de Receitas</th>
-                                        <th>Nº de Alunos</th>
-                                        <th></th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <!-- lista de aulas agendadas será gerada aqui -->
-                                <tbody class="listaAulasAgendadas"></tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- FIM TABELA DE AULAS AGENDADAS -->
-
-            <!-- TABELA PLANEJAR AULAS -->
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="box box-warning">
-                        <div class="box-header">
-                            <h3 class="box-title ">Aulas Planejadas</h3>
-
-                            <!-- SUBMENU ADD -->
-                            <div class="pull-right box-tools">
-                                <button type="button" class="btn btn-success btn-sm" id="addIngrediente"><i class="fa fa-plus"></i></button>
+            <section class="content">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="box box-info">
+                            <!-- header da tabela search sera gerada aqui -->
+                            <div class="box-header search_header">
                             </div>
-                            <!-- FIM SUBMENU ADD -->
-                        </div>
-                        <div class="box-body">
-                            <table class="table table-bordered table-hover aulas">
-                                <thead>
-                                    <tr>
-                                        <th>Dia</th>
-                                        <th>Turno</th>
-                                        <th>Nº de Receitas</th>
-                                        <th>Nº de Alunos</th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <!-- lista de aulas criadas será gerada aqui -->
-                                <tbody class="listaAulasPlanejadas"></tbody>
-
-                            </table>
+                            <div class="box-body">
+                                <table class="table table-bordered table-hover aulas">
+                                    <!-- lista da busca sera gerada aqui -->
+                                    <tbody class="htmlIngList">
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- FIM TABELA PLANEJAR AULAS -->
+            </section>
+        </div>
+        <!-- FIM search -->
 
-            <!-- MODAL CRIAR AULA -->
-            <div id="addReceita" class="modal fade" role="dialog">
-                <div class="modal-dialog">
+        <!-- id conteudo_principal seleciona todo o conteudo original, some tudo quando estiver buscando -->
+        <div id="conteudo_principal">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <h1>Aulas</h1>
+            </section>
 
-                    <div class="modal-content">
-                        <div class="modal-header cabecalho">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <section class="content">
 
+                <!-- TABELA DE AULAS AGENDADAS -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="box box-success">
+                            <div class="box-header">
+                                <h3 class="box-title ">Aulas Agendadas</h3>
+                            </div>
+                            <div class="box-body">
+                                <table class="table table-bordered table-hover aulas">
+                                    <thead>
+                                        <tr>
+                                            <th>Dia</th>
+                                            <th>Turno</th>
+                                            <th>Nº de Receitas</th>
+                                            <th>Nº de Alunos</th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <!-- lista de aulas agendadas será gerada aqui -->
+                                    <tbody class="listaAulasAgendadas"></tbody>
+                                </table>
+                            </div>
                         </div>
-                        <div class="modal-body">
+                    </div>
+                </div>
+                <!-- FIM TABELA DE AULAS AGENDADAS -->
 
-                            <ul id="mensagens-erro"></ul>
-                            <ul id="mensagens-sucesso"></ul>
+                <!-- TABELA PLANEJAR AULAS -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="box box-warning">
+                            <div class="box-header">
+                                <h3 class="box-title ">Aulas Planejadas</h3>
 
-                            <form class="form-horizontal" method="POST" id="form_addAula">
-                                <div class="box-body">
+                                <!-- SUBMENU ADD -->
+                                <div class="pull-right box-tools">
+                                    <button type="button" class="btn btn-success btn-sm" id="addIngrediente"><i class="fa fa-plus"></i></button>
+                                </div>
+                                <!-- FIM SUBMENU ADD -->
+                            </div>
+                            <div class="box-body">
+                                <table class="table table-bordered table-hover aulas">
+                                    <thead>
+                                        <tr>
+                                            <th>Dia</th>
+                                            <th>Turno</th>
+                                            <th>Nº de Receitas</th>
+                                            <th>Nº de Alunos</th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <!-- lista de aulas criadas será gerada aqui -->
+                                    <tbody class="listaAulasPlanejadas"></tbody>
 
-                                    <div class="idAula"></div>
-                                    <input hidden name="aulaPronta" value="false">
-                                    <div class="form-group">
-                                        <div class="col-xs-3">
-                                            <label class="col-sm-3 control-label">Data</label>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-xs-4 data"></div>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- FIM TABELA PLANEJAR AULAS -->
+
+                <!-- MODAL CRIAR AULA -->
+                <div id="addReceita" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+
+                        <div class="modal-content">
+                            <div class="modal-header cabecalho">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                            </div>
+                            <div class="modal-body">
+
+                                <ul id="mensagens-erro"></ul>
+                                <ul id="mensagens-sucesso"></ul>
+
+                                <form class="form-horizontal" method="POST" id="form_addAula">
+                                    <div class="box-body">
+
+                                        <div class="idAula"></div>
+                                        <input hidden name="aulaPronta" value="false">
+                                        <div class="form-group">
                                             <div class="col-xs-3">
-                                                <select name="id_periodo" class="form-control turno" style="width: 100%;"></select>
+                                                <label class="col-sm-3 control-label">Data</label>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-4 data"></div>
+                                                <div class="col-xs-3">
+                                                    <select name="id_periodo" class="form-control turno" style="width: 100%;"></select>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <div class="form-group">
-                                        <div class="col-xs-3">
-                                            <label class="col-sm-3 control-label">Nº Alunos</label>
+                                        <div class="form-group">
+                                            <div class="col-xs-3">
+                                                <label class="col-sm-3 control-label">Nº Alunos</label>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-4 numAlunos"></div>
+                                            </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-xs-4 numAlunos"></div>
-                                        </div>
-                                    </div>
 
-                                    <div class="form-group">
-                                        <div class="col-xs-3">
-                                            <label class="col-sm-4 control-label">Receitas</label>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-xs-4">
-                                                <select class="form-control" id="receitas" style="width: 100%;">
+                                        <div class="form-group">
+                                            <div class="col-xs-3">
+                                                <label class="col-sm-4 control-label">Receitas</label>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-4">
+                                                    <select class="form-control" id="receitas" style="width: 100%;">
                                                     <option value =0>--- Receita ---</option>
                                                 </select>
+                                                </div>
+                                                <div class="col-xs-3 numReceitas"></div>
+                                                <button type="button" class="btn btn-success btn-sm" id="btnAddReceita"><i class="fa fa-plus"></i></button>
                                             </div>
-                                            <div class="col-xs-3 numReceitas"></div>
-                                            <button type="button" class="btn btn-success btn-sm" id="btnAddReceita"><i class="fa fa-plus"></i></button>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-xs-10 col-sm-10">
+                                                <table id="lista_receita" class="table table-bordered table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Receita</th>
+                                                            <th>Nº Receitas</th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </thead>
+
+                                                    <!-- LOCAL ONDE A TABELA SERÁ GERADA -->
+                                                    <tbody class="tabela_receita"> </tbody>
+
+                                                </table>
+
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <div class="col-xs-10 col-sm-10">
-                                            <table id="lista_receita" class="table table-bordered table-hover">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Receita</th>
-                                                        <th>Nº Receitas</th>
-                                                        <th></th>
-                                                    </tr>
-                                                </thead>
 
-                                                <!-- LOCAL ONDE A TABELA SERÁ GERADA -->
-                                                <tbody class="tabela_receita"> </tbody>
+                                    <div class="modal-footer rodape"></div>
+                                </form>
 
-                                            </table>
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="modal-footer rodape"></div>
-                            </form>
-
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- FIM MODAL CRIAR AULA -->
-        </section>
+                <!-- FIM MODAL CRIAR AULA -->
+            </section>
+        </div>
     </div>
 
     <!-- MODAL BOTAO COMFIRMAR AULA CONCLUIDA -->
@@ -354,9 +397,10 @@
     <script src="../js/jquery.ui.datepicker.validation.min.js"></script>
 
     <script src="../js/extra/ajaxTabelaAulas.js"></script>
-    <script src="../js/extra/modal_add_editar_aulas.js"></script>
+    <script src="../js/extra/modal_add_editar_detalhes_aulas.js"></script>
     <script src="../js/extra/util.js"></script>
     <script src="../js/extra/validacao_receitas_da_aula.js"></script>
+    <script src="../js/search.js"></script>
 </body>
 
 </html>

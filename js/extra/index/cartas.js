@@ -18,7 +18,6 @@ function calculaValores() {
 
     $.each(jsonAula, function (indexAula, valAula) {
         // conta o numero de aulas criadas
-
         if (valAula.aula_agendada == "false") {
             j++
             htmlAulasCriadas = '<h3>' + j + '</h3>';

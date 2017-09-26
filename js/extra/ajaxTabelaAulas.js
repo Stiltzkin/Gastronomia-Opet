@@ -83,16 +83,14 @@ function getTabela(jsonAula, jsonReceita, jsonPeriodo) {
 // ===================== POST PUT ===================== //
 // chamado na validacao_receitas_da_aula.js
 function jsonPost() {
-    alert('oi')
     var form = $('#form_addAula');
 
     // pega id da aula (se vazio = POST, se tem algo = PUT)
     var id = $(this).closest('form').find('.id_aula').val();
-    if (id == '') {
-        var urlData = "http://httpbin.org/post";
-    } else {
-        var urlData = "http://httpbin.org/post/" + id + "";
-    }
+
+    var url = "http://localhost:3000/receitas";
+    if (id)
+        url += "/" + id;
 
     $.ajax({
         type: "POST",
@@ -174,7 +172,6 @@ $('.aulas').on('click', '.botaoAulaConcluida', function () {
                     })
                 },
             })
-
         }
     );
 });

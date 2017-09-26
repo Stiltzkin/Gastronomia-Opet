@@ -16,6 +16,7 @@
 
 /* Cor dos Hiperlink */
 
-#hipertextColor {
+#hipertextColor,
+.hipertextColor {
     color: black;
 }

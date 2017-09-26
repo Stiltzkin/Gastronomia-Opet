@@ -58,15 +58,26 @@
         <section class="sidebar">
 
             <!-- Search -->
-            <form action="#" method="get" class="sidebar-form">
-                <div class="input-group">
-                    <input type="text" name="q" class="form-control" placeholder="Search...">
+            <div class="btn-group sidebar-form">
+                <div class="input-group" data-toggle="dropdown">
+                    <input type="text" class="dropdown-toggle form-control" id="myInput" aria-haspopup="true" aria-expanded="false" placeholder="Procurar.."
+                        onkeyup="search()">
+                    </input>
+
                     <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
+                                <button type="button" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                                </button>
+                            </span>
                 </div>
-            </form>
+
+                <ul class="dropdown-menu">
+                    <li><input class="col-xs-3" type="radio" id="filterIng" name="hah" onclick="getIngredientes()" value="Ingredientes">
+                        <label for="filterIng">Ingredientes</label></li>
+                    <li><input class="col-xs-3" type="radio" id="filterRec" name="hah" onclick="getReceitas()" value="Receitas">
+                        <label for="filterRec">Receitas</label>
+                    </li>
+                </ul>
+            </div>
             <!-- Search FIM -->
 
             <!-- sidebar menu -->
@@ -109,41 +120,73 @@
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <h1>Aulas Concluidas</h1>
-        </section>
 
-        <section class="content">
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="box">
-                        <div class="box-header">
-                            <h3 class="box-title ">Aulas Concluidas</h3>
+        <!-- Search será gerado aqui -->
+        <div id="listaSearch" style="display:none;">
+            <!-- CABEÇALHO -->
+            <section class="content-header">
+                <h1>Procurando</h1>
+            </section>
+
+            <section class="content">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="box box-info">
+                            <!-- header da tabela search sera gerada aqui -->
+                            <div class="box-header search_header">
+                            </div>
+                            <div class="box-body">
+                                <table class="table table-bordered table-hover aulas">
+                                    <!-- lista da busca sera gerada aqui -->
+                                    <tbody class="htmlIngList">
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-
-                        <div class="box-body">
-                            <table class="table table-bordered table-hover aulas">
-                                <thead>
-                                    <tr>
-                                        <th>Dia</th>
-                                        <th>Turno</th>
-                                        <th>Nº de Receitas</th>
-                                        <th>Nº de Alunos</th>
-                                        <th></th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-
-                                <!-- local onde será gerada a lista de aulas -->
-                                <tbody class="aulaConcluidaList"></tbody>
-                            </table>
-                        </div>
-
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </div>
+        <!-- FIM search -->
+
+        <!-- id conteudo_principal seleciona todo o conteudo original, some tudo quando estiver buscando -->
+        <div id="conteudo_principal">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <h1>Aulas Concluidas</h1>
+            </section>
+
+            <section class="content">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="box">
+                            <div class="box-header">
+                                <h3 class="box-title ">Aulas Concluidas</h3>
+                            </div>
+
+                            <div class="box-body">
+                                <table class="table table-bordered table-hover aulas">
+                                    <thead>
+                                        <tr>
+                                            <th>Dia</th>
+                                            <th>Turno</th>
+                                            <th>Nº de Receitas</th>
+                                            <th>Nº de Alunos</th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+
+                                    <!-- local onde será gerada a lista de aulas -->
+                                    <tbody class="aulaConcluidaList"></tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
     </div>
 
     <!-- MODAL DETALHES DA AULA -->
@@ -190,6 +233,8 @@
 
     <script src="../js/extra/util.js"></script>
     <script src="../js/extra/ajaxTabelaAulas.js"></script>
+    <script src="../js/extra/modal_add_editar_detalhes_aulas.js"></script>
+    <script src="../js/search.js"></script>
 </body>
 
 </html>
